@@ -1,5 +1,7 @@
 const express = require('express');
 
+const db = require('./util/db');
+
 const app = express();
 
 app.use(express.json());
@@ -26,6 +28,16 @@ app.post('/api/ping', (req, res) => {
         return res.status(400).json({
             msg: 'please include the parameter \'msg\' with value \'ping\''
         })
+    }
+})
+
+app.get('/api/now', async (req, res) => {
+    try {
+        const rows = await db.query('SELECT NOW()');
+        res.json(rows)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send('Something went wrong!');
     }
 })
 
