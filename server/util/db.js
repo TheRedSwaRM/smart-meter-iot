@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 
 // Check if connected to database
-console.log(`Connected to:\nUser: ${process.env.PGUser}\nDatabase: ${process.env.PGDatabase}`);
+console.log(`Connected to:\nUser: ${process.env.PGUSER}\nDatabase: ${process.env.PGDATABASE}`);
 
 module.exports = {
     pool: pool,
