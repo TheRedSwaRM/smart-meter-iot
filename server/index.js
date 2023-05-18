@@ -19,6 +19,26 @@ app.get('/api/user_input/all', async (req, res) => {
     }
 })
 
+app.get('/api/device_response/all', async (req, res) => {
+    try {
+        const rows = await db.query('SELECT * FROM device_response');
+        return res.json(rows);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Something went wrong!');
+    }
+})
+
+app.get('/api/cloud_response/all', async (req, res) => {
+    try {
+        const rows = await db.query('SELECT * FROM cloud_response');
+        return res.json(rows);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Something went wrong!');
+    }
+})
+
 // actual APIs
 app.post('/api/device_response', async (req, res) => {
     try {
