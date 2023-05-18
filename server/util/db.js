@@ -7,7 +7,7 @@ const pool = new Pool({
     password: process.env.PGPASSWORD,
     port: process.env.PGPORT,
     keepAlive: true,
-    ssl: true
+    ssl: { rejectUnauthorized: false }
 });
 
 // Check if connected to database
