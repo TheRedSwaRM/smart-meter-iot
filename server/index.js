@@ -8,6 +8,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// API check
+app.get('/api/user_input/all', async (req, res) => {
+    try {
+        const rows = await db.query('SELECT * FROM user_input');
+        return res.json(rows);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Something went wrong!');
+    }
+})
+
+// Health test APIs
 app.get('/api/up', (req, res) => {
     res.send('Backend is running!');
 });

@@ -5,11 +5,20 @@ const pool = new Pool({
     host: process.env.PGHOST,
     database: process.env.PGDATABASE,
     password: process.env.PGPASSWORD,
-    port: process.env.PGPORT
+    port: process.env.PGPORT,
+    keepAlive: true,
+    ssl: true
 });
 
 // Check if connected to database
-console.log(`Connected to:\nUser: ${process.env.PGUSER}\nDatabase: ${process.env.PGDATABASE}`);
+// console.log(`Connected to:\nUser: ${process.env.PGUSER}\nDatabase: ${process.env.PGDATABASE}`);
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        return console.error(err)
+    } else {
+        return console.log(`Connected to ${process.env.PGUSER} at database ${process.env.PGDATABASE} at ${res.rows[0].now}`);
+    }
+})
 
 module.exports = {
     pool: pool,
