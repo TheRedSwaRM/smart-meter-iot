@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
 import '../styles/form.css';
 
-const Form = () => {
+const Form = (props) => {
   const [uname, setUname] = useState(); 
   const [password, setPassword] = useState(); 
   
   const [dataInput, setDataInput] = useState();
 
   
-  const doSubmit = () => {
+  const doSubmit = (e) => {
+    e.preventDefault()
     const login = {uname:uname, password:password}
-    setDataInput([login]);
+    setDataInput([login])
+    if (props.onSubmit) {
+      props.onSubmit(uname, password)
+    }
   }
 
   return(
