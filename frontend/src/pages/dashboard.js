@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import getCurrentDate from '../utils';
+import getCurrentDate from '../utils/date';
 import '../styles/utils.css';
+import Modal from '../components/modal';
 
-function Dashboard() {
-  const [uname, setUname] = setState('user');
+const Dashboard = () => {
+  const [uname, setUname] = useState('user');
   const date = getCurrentDate();
   const currentMonth = date.month;
   return ( 
