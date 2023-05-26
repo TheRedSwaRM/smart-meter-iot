@@ -22,6 +22,22 @@ app.get('/api/user_input/all', async (req, res) => {
     }
 })
 
+app.get('/api/user_input/:id', async (req, res) => {
+    let { id } = req.params;
+    if (!id) {
+        return res.status(400).send('Missing user id');
+    } else {
+        id = parseInt(id);
+    }
+    try {
+        const row = (await db.query('SELECT * FROM user_input WHERE id = $1', [id]))[0];
+        return res.json(row);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Something went wrong!');
+    }
+})
+
 app.get('/api/device_response/all', async (req, res) => {
     try {
         const rows = await db.query('SELECT * FROM device_response');
