@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import getCurrentDate from '../utils/date';
 import '../styles/utils.css';
 import '../styles/dashboard.css'
@@ -15,6 +15,16 @@ const Dashboard = () => {
 
   const userid = localStorage.getItem('userid')
   const userData = useData(userid)
+
+  useEffect(() => {
+    if (!userData.loading) {
+      const autoUpdate = () => {
+        userData.getData()
+        setTimeout(autoUpdate, 5000)
+      }
+      setTimeout(autoUpdate, 5000)
+    }
+  }, [userData.loading])
 
   if (userData.loading) {
     return <div>Loading...</div>
