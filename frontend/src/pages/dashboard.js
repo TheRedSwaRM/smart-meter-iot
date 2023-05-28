@@ -4,6 +4,7 @@ import '../styles/utils.css';
 import '../styles/dashboard.css'
 import Modal from '../components/modal';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import useData from '../hooks/useData';
 
 const Dashboard = () => {
   const [uname, setUname] = useState('user');
@@ -12,6 +13,14 @@ const Dashboard = () => {
 
   const nav = useNavigate();
 
+  const userid = localStorage.getItem('userid')
+  const userData = useData(userid)
+
+  if (userData.loading) {
+    return <div>Loading...</div>
+  }
+
+  const energyExpense = userData.expenses[userData.expenses.length-1]
 
   return ( 
   <>     
@@ -19,10 +28,10 @@ const Dashboard = () => {
     <Modal>
       <h2 style = {{textAlign: 'center'}}> Hello, {uname}! Here's your: </h2>
       <p>
-        Current Energy Expenses (for the month of {currentMonth}): 
+        Current Energy Expenses (for the month of {currentMonth}): {energyExpense.estimated_cost}
       </p>
       <p>
-        Current Energy Expenses threshold: 
+        Current Energy Expenses threshold: {energyExpense.thresh_up}
       </p>
       <br/>
       <div className='navbar'>
