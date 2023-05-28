@@ -1,13 +1,18 @@
 import React, {useState} from 'react';
 import '../styles/form.css';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Navigate from '../utils/navutils'
 
 const Form = (props) => {
+  const nav = useNavigate();
   const [uname, setUname] = useState(); 
   const [password, setPassword] = useState(); 
   
   const [dataInput, setDataInput] = useState();
 
-  
+  const navigateToSignUpForm = () => {
+    nav('/signup');
+  }
   const doSubmit = (e) => {
     e.preventDefault()
     const login = {uname:uname, password:password}
@@ -42,8 +47,13 @@ const Form = (props) => {
             onChange = {(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="button-container">
-          <input type="submit" value = "Log In"/>
+        <div className="button-bar">
+          <div className="button-container">
+            <input type="submit" name = "login" value = "Log In"/>
+          </div>
+          <div className="button-container">
+            <input type= "button" name = "signup" value = "Sign Up"onClick={navigateToSignUpForm}/>
+          </div>
         </div>
       </form>
     </div>

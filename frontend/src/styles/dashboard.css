@@ -1,0 +1,22 @@
+.navbar {
+  color: darkgray;
+  font-weight: bold;
+  text-align: center;
+}
+
+.navbar > a {
+  color: darkgray;
+  text-decoration: none;
+}
+
+.navbar > a:visited {
+  color: darkgray;
+}
+
+.navbar > a:hover {
+  color: #01d28e;
+}
+
+.navbar > a:active {
+  color: #6cf0c2;
+}

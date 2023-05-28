@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import getCurrentDate from '../utils/date';
 import '../styles/utils.css';
+import '../styles/dashboard.css'
 import Modal from '../components/modal';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [uname, setUname] = useState('user');
   const date = getCurrentDate();
   const currentMonth = date.month;
+
+  const nav = useNavigate();
+
+
   return ( 
   <>     
    <h1 style = {{textAlign: 'center'}}>IoMeter</h1>
@@ -19,9 +25,9 @@ const Dashboard = () => {
         Current Energy Expenses threshold: 
       </p>
       <br/>
-      <p>
-        Settings | Logout
-      </p>
+      <div className='navbar'>
+        <Link to='../settings'>Settings</Link> | <Link to='../login'>Logout</Link>
+      </div>
     </Modal>
   </>
   );

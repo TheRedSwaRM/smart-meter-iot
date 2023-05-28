@@ -1,6 +1,6 @@
 import logo from '../logo.svg';
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Switch} from 'react-router-dom';
 
 import { SessionContext, SessionVerbs } from '../contexts/SessionContext';
 import server from '../utils/server';
@@ -14,9 +14,11 @@ const Login = () => {
   const [sessionInfo, setSessionInfo] = useState({
     loading: true,
     loggedIn: false,
+    signUp: false,
     userid: '',
     display: ''
   })
+
   const sessionVerb = {
     login: (userid, display) => {
       localStorage.setItem('userid', userid)
@@ -59,10 +61,15 @@ const Login = () => {
       const id = res.data.id
       const display = res.data.username
       sessionVerb.login(id, display)
-    } catch (err) {
+    } 
+    
+    catch (err) {
       console.error(err)
       const msg = err.response.data || 'Something went wrong'
       alert(msg)
+
+      // Pls take this out later lmao
+      sessionVerb.login('', 'default user')
     }
   }
 
@@ -72,12 +79,7 @@ const Login = () => {
       {
         sessionInfo.loggedIn ?
         <>
-          <h1 style = {{textAlign: 'center'}}>IoMeter</h1>
-          <Modal>
-            <h2 style = {{textAlign: 'center'}}>Welcome {sessionInfo.display}</h2>
-            <p className='date'>{getCurrentDate()}</p>
-            <button onClick={() => sessionVerb.logout()}>Logout</button>
-          </Modal>
+          <Navigate to="/dashboard"/>
         </> :
         <>
           <h1 style = {{textAlign: 'center'}}>IoMeter</h1>

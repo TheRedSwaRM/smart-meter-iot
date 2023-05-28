@@ -4,24 +4,71 @@ input[type="password"] {
   height: 25px;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
-
-input[type="submit"] {
+input[type="button"] {
   margin-top: 10px;
   cursor: pointer;
   font-size: 15px;
+  font-weight: bold;
   background: #01d28e;
   border: 1px solid #01d28e;
   color: #fff;
   padding: 10px 20px;
 }
 
+input[type="submit"] {
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  background: #01d28e;
+  border: 1px solid #01d28e;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+input[name="signup"] {
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  background: #AAAAAA;
+  border: 1px solid #AAAAAA;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+input[name="cancel"] {
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  background: #AAAAAA;
+  border: 1px solid #AAAAAA;
+  color: #fff;
+  padding: 10px 20px;
+}
+
 input[type="submit"]:hover {
   background: #6cf0c2;
+  border: 1px solid #6cf0c2;
+}
+
+input[type="button"]:hover {
+  background: #6cf0c2;
+  border: 1px solid #6cf0c2;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
+}
+
+.button-bar {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: space-between;
 }
 
 .login-form {
@@ -46,7 +93,20 @@ input[type="submit"]:hover {
 
 .input-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
   margin: 20px;
+}
+
+.input-container > input {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.input-container > label {
+  flex: 1;
+}
+
+h3 {
+  margin-left: 20px;
 }
