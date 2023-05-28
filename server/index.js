@@ -154,6 +154,8 @@ app.post('/api/device_response', async (req, res) => {
                             VALUES (NOW(), $1, $2, $3, $4) RETURNING *`;
         const cloudResponse = (await db.query(responseQuery, [estimatedCost, led_status, buzzer_status, deviceResponse.id]))[0];
 
+        console.log(`device: ${kwh} ${device_id} ${new Date()}`)
+
         return res.json({
             cost: cloudResponse.estimated_cost,
             led_status: cloudResponse.led_status,

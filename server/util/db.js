@@ -25,13 +25,21 @@ module.exports = {
     query: async (query) => {
         console.log('Queried:\n', query);
         const res = await pool.query(query);
-        console.log('Result:\n', res.rows);
+        if (res.rows.length) {
+            console.log('Result:\n', res.rows[res.rows.length-1]);
+        } else {
+            console.log('No results\n')
+        }
         return res.rows
     },
     query: async (text, params) => {
         console.log('Queried:\n', text, params);
         const res = await pool.query(text, params);
-        console.log('Result:\n', res.rows);
+        if (res.rows.length) {
+            console.log('Result:\n', res.rows[res.rows.length-1]);
+        } else {
+            console.log('No results\n')
+        }
         return res.rows;
     }
 }
