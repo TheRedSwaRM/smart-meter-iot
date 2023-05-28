@@ -8,7 +8,7 @@ const FormSettings = (props) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const userid = localStorage.getItem('userid')
-  const userData = useData('userid');
+  const userData = useData(userid);
 
   const [accInfo, setAccInfo] = useState({
     kwhCost: userData.userInputs.cost,  //kwh cost value
