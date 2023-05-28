@@ -7,26 +7,32 @@ function useData(id) {
     const [userInputs, setUserInputs] = useState({ low: 0, high: 0, cost: 0 })
     const [expenses, setExpenses] = useState([])
 
-    useEffect(() => {
-        const getUserInputs = async () => {
-            const res = await server.get(`/api/user_input/${id}`)
-            const low = res.data.thresh_low
-            const high = res.data.thresh_up
-            const cost = res.data.cost_per_kwh
-            setUserInputs({ low, high, cost }) 
-        }
-        const getExpenses = async () => {
-            const res = await server.get(`/user/data?id=${id}`)
-            setExpenses(res.data)
-        }
+    const getUserInputs = async () => {
+        const res = await server.get(`/api/user_input/${id}`)
+        const low = res.data.thresh_low
+        const high = res.data.thresh_up
+        const cost = res.data.cost_per_kwh
+        setUserInputs({ low, high, cost }) 
+    }
+    const getExpenses = async () => {
+        const res = await server.get(`/user/data?id=${id}`)
+        setExpenses(res.data)
+    }
+
+    const getData = () => {
         getUserInputs().then(() => setState(prev => ({ ...prev, loadingUser: false })))
         getExpenses().then(() => setState(prev => ({ ...prev, loadingExpenses: false })))
+    }
+
+    useEffect(() => {
+        getData()
     }, [id])
 
     return {
         loading: state.loadingUser || state.loadingExpenses,
         userInputs,
-        expenses
+        expenses,
+        getData
     }
 }
 

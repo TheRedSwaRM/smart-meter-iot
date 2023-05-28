@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../styles/form.css';
 import useData from '../hooks/useData';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import server from '../utils/server';
 
 const FormSettings = (props) => {
   const nav = useNavigate();
@@ -24,13 +25,22 @@ const FormSettings = (props) => {
     })
   }, [userData.userInputs])
 
-  const doSubmit = (e) => {
+  const doSubmit = async (e) => {
     // insert code to update values here
     e.preventDefault()
-
+    const cost_per_kwh = accInfo.kwhCost
+    const thresh_low = accInfo.thresh_low
+    const thresh_up = accInfo.thresh_high
+    await server.post(`/api/user_input/${userid}`, {
+      cost_per_kwh,
+      thresh_low,
+      thresh_up
+    })
+    nav('/dashboard')
   }
+
   const doCancel = () => {
-    nav('../dashboard');
+    nav('/dashboard');
   }
 
 
@@ -45,7 +55,8 @@ const FormSettings = (props) => {
             required 
             value = {accInfo.kwhCost} 
             onChange = {(e) => setAccInfo({
-              kwhCost: e.target.value
+              ...accInfo,
+              kwhCost: parseFloat(e.target.value)
             })}
           />
         </div>
@@ -58,7 +69,8 @@ const FormSettings = (props) => {
             required 
             value = {accInfo.thresh_low} 
             onChange = {(e) => setAccInfo({
-              thresh_low: e.target.value
+              ...accInfo,
+              thresh_low: parseFloat(e.target.value)
             })}
           />
           <label>High: </label>
@@ -67,7 +79,8 @@ const FormSettings = (props) => {
             required 
             value = {accInfo.thresh_high} 
             onChange = {(e) => setAccInfo({
-              thresh_high: e.target.value
+              ...accInfo,
+              thresh_high: parseFloat(e.target.value)
             })}
           />
         </div>
@@ -75,7 +88,7 @@ const FormSettings = (props) => {
 
         <div className="button-bar">
           <div className="button-container">
-            <input type="button" name = "save" value = "Save Settings"/>
+            <input type="submit" name = "save" value = "Save Settings"/>
           </div>
           <div className="button-container">
             <input type="button" name = "cancel" value = "Cancel" onClick={doCancel}/>
