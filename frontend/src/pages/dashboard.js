@@ -17,12 +17,18 @@ const Dashboard = () => {
   const userData = useData(userid)
 
   useEffect(() => {
+    let autoUpdate = null
     if (!userData.loading) {
-      const autoUpdate = () => {
+      autoUpdate = () => {
         userData.getData()
         setTimeout(autoUpdate, 5000)
       }
       setTimeout(autoUpdate, 5000)
+    }
+    return () => {
+      if (autoUpdate) {
+        clearTimeout(autoUpdate)
+      }
     }
   }, [userData.loading])
 
