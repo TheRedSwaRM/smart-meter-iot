@@ -28,6 +28,7 @@ const Dashboard = () => {
       <div className='navbar'>
         <Link to='../settings'>Settings</Link> | <Link to='../login'>Logout</Link>
       </div>
+      <p className='date'>{getCurrentDate()}</p>
     </Modal>
   </>
   );
