@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../styles/form.css';
 import useData from '../hooks/useData';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -8,16 +8,23 @@ const FormSettings = (props) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const userid = localStorage.getItem('userid')
-  const userData = useData(userid);
+  const userData = useData(userid)
 
   const [accInfo, setAccInfo] = useState({
-    kwhCost: userData.userInputs.cost,  //kwh cost value
-    thresh_low: userData.userInputs.low, //first threshold benchmark
-    thresh_high: userData.userInputs.high //second threshold benchmark
-  })
+    kwhCost: 0,
+    thresh_low: 0,
+    thresh_high: 0
+  }) 
+  
+  useEffect(() => {
+    setAccInfo({
+      kwhCost: userData.userInputs.cost,  //kwh cost value
+      thresh_low: userData.userInputs.low, //first threshold benchmark
+      thresh_high: userData.userInputs.high //second threshold benchmark
+    })
+  }, [userData.userInputs])
 
   const doSubmit = (e) => {
-
     // insert code to update values here
     e.preventDefault()
 

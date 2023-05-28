@@ -4,7 +4,7 @@ import server from '../utils/server'
 // use this hook to get the data from the server
 function useData(id) {
     const [state, setState] = useState({ loadingUser: true, loadingExpenses: true })
-    const [userInputs, setUserInputs] = useState({ low: 0, high: Infinity, cost: 0 })
+    const [userInputs, setUserInputs] = useState({ low: 0, high: 0, cost: 0 })
     const [expenses, setExpenses] = useState([])
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function useData(id) {
         }
         getUserInputs().then(() => setState(prev => ({ ...prev, loadingUser: false })))
         getExpenses().then(() => setState(prev => ({ ...prev, loadingExpenses: false })))
-    })
+    }, [id])
 
     return {
         loading: state.loadingUser || state.loadingExpenses,
