@@ -4,6 +4,7 @@ import '../styles/utils.css';
 import '../styles/dashboard.css'
 import Modal from '../components/modal';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import Login from './login';
 import useData from '../hooks/useData';
 
 const Dashboard = () => {
@@ -13,8 +14,8 @@ const Dashboard = () => {
 
   const nav = useNavigate();
 
-  const userid = localStorage.getItem('userid')
-  const userData = useData(userid)
+  const userid = localStorage.getItem('userid');
+  const userData = useData(userid);
 
   useEffect(() => {
     let autoUpdate = null
@@ -37,21 +38,26 @@ const Dashboard = () => {
   }
 
   const energyExpense = userData.expenses[userData.expenses.length-1]
+  const doLogout = () => {
+    localStorage.removeItem('userid')
+    localStorage.removeItem('display')
+  }
 
   return ( 
   <>     
    <h1 style = {{textAlign: 'center'}}>IoMeter</h1>
     <Modal>
       <h2 style = {{textAlign: 'center'}}> Hello, {uname}! Here's your: </h2>
-      <p>
-        Current Energy Expenses (for the month of {currentMonth}): {energyExpense.estimated_cost}
-      </p>
-      <p>
-        Current Energy Expenses threshold: {energyExpense.thresh_up}
-      </p>
+      
+      <div className = "infoLine">
+        Expenses (for the month of {currentMonth}): <input type="text" disabled value = {"PHP" + energyExpense.estimated_cost} />
+      </div>
+      <div className = "infoLine">
+        Current threshold: <input type="text" disabled value = {energyExpense.thresh_up} />
+      </div>
       <br/>
       <div className='navbar'>
-        <Link to='../settings'>Settings</Link> | <Link to='../login'>Logout</Link>
+        <Link to='../settings'>Settings</Link> | <Link to='../login' onClick={doLogout}>Logout</Link>
       </div>
       <p className='date'>{getCurrentDate()}</p>
     </Modal>

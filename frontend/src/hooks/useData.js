@@ -15,8 +15,13 @@ function useData(id) {
         setUserInputs({ low, high, cost }) 
     }
     const getExpenses = async () => {
-        const res = await server.get(`/user/data?id=${id}`)
-        setExpenses(res.data)
+        try{
+            const res = await server.get(`/user/data?id=${id}`)
+            setExpenses(res.data)
+        }
+        catch{
+            console.log('Could not establish connection to server.');
+        }
     }
 
     const getData = () => {

@@ -20,3 +20,19 @@
 .navbar > a:active {
   color: #6cf0c2;
 }
+
+.infoLine {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 20px;
+  font-weight: bold;
+}
+
+.infoLine > input {
+  max-width: 150px;
+  flex: 1;
+  text-align: right;
+}

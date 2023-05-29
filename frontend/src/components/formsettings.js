@@ -51,7 +51,8 @@ const FormSettings = (props) => {
         <div className="input-container">
           <label>Kw/H Cost: </label>
           <input 
-            type="text" name="kwhcost" id = "kwhcost" 
+            type="number" name="kwhcost" id = "kwhcost" 
+            step = "0.00001"
             required 
             value = {accInfo.kwhCost} 
             onChange = {(e) => setAccInfo({
