@@ -20,7 +20,8 @@ CREATE TABLE device_response (
     id SERIAL PRIMARY KEY,
     device_id VARCHAR(64) NOT NULL REFERENCES device_user(device_id),
     created_on TIMESTAMP NOT NULL,
-    current_value FLOAT8 NOT NULL
+    current_value FLOAT8 NOT NULL,
+    power FLOAT8
 );
 
 CREATE TABLE cloud_response (

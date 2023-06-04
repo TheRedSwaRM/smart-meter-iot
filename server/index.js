@@ -115,7 +115,8 @@ app.get('/user/data', async (req, res) => {
                         INNER JOIN cloud_response AS cr ON dr.id = cr.device_response_id
                         WHERE ui.id = $1`;
         const rows = (await db.query(query, [id]));
-        return res.json(rows);
+        const processed = rows.map(row => ({ ...row, power: row.power || 0 }))
+        return res.json(processed);
     } catch (err) {
         console.log(err);
         res.status(500).send('Something went wrong!');
@@ -125,7 +126,7 @@ app.get('/user/data', async (req, res) => {
 // actual APIs
 app.post('/api/device_response', async (req, res) => {
     try {
-        const { kwh, device_id } = req.body;
+        const { kwh, power, device_id } = req.body;
         // scripted muna device_id = 'A'
         // scripted muna user_id = 2
         const { user_id } = (await db.query('SELECT user_id FROM device_user WHERE device_id = $1', [device_id]))[0];
@@ -146,9 +147,9 @@ app.post('/api/device_response', async (req, res) => {
             buzzer_status = 2;
         }
         
-        const deviceQuery = `INSERT INTO device_response (device_id, created_on, current_value)
-                                VALUES ($1, NOW(), $2) RETURNING *`;
-        const deviceResponse = (await db.query(deviceQuery, [device_id, kwh]))[0];
+        const deviceQuery = `INSERT INTO device_response (device_id, created_on, current_value, power)
+                                VALUES ($1, NOW(), $2, $3) RETURNING *`;
+        const deviceResponse = (await db.query(deviceQuery, [device_id, kwh, power]))[0];
         const responseQuery = `INSERT INTO cloud_response 
                                 (created_on, estimated_cost, led_status, buzzer_status, device_response_id)
                             VALUES (NOW(), $1, $2, $3, $4) RETURNING *`;
