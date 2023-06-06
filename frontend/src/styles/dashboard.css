@@ -20,3 +20,33 @@
 .navbar > a:active {
   color: #6cf0c2;
 }
+
+.status {
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-screen {
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.input-container > input {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.input-container > label {
+  flex: 1;
+}
+
+h3 {
+  margin-left: 20px;
+}

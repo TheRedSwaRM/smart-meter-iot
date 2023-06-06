@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
 import Settings from "./pages/settings";
@@ -10,6 +10,7 @@ import "./App.css";
 function App() {
   return (
     <Routes>
+      <Route index element={<Navigate to="/login" />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />

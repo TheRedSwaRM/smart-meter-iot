@@ -49,6 +49,9 @@ const Login = () => {
     if (userid && display) {
       sessionVerb.login(userid, display)
     }
+    else {
+      sessionVerb.logout()
+    }
     setSessionInfo(prev => ({ ...prev, loading: false }))
   }, [])
 
@@ -69,7 +72,7 @@ const Login = () => {
       alert(msg)
 
       // Pls take this out later lmao
-      sessionVerb.login('', 'default user')
+      // sessionVerb.login('', 'default user')
     }
   }
 
