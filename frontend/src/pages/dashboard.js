@@ -5,6 +5,7 @@ import '../styles/dashboard.css'
 import Modal from '../components/modal';
 import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import useData from '../hooks/useData';
+import AlertBanner from '../components/alertbanner';
 
 const Dashboard = () => {
   const date = (new Date()).toLocaleString('en-US', {month: 'long'}) + ' ' + (new Date().getFullYear()).toString();
@@ -57,6 +58,12 @@ const Dashboard = () => {
         </div>
           
       </div>
+      <br/>
+      <AlertBanner 
+        value={cost}
+        low={userData.userInputs.low}
+        high={userData.userInputs.high}
+      />
       <br/>
       <div className='navbar'>
         <Link to='../settings'>Settings</Link> | <Link to='../login' onClick={doLogout}>Logout</Link>

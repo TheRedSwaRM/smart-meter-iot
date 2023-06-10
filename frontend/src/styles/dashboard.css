@@ -41,6 +41,7 @@
 .input-container > input {
   flex: 1;
   margin-left: 20px;
+  justify-content: space-evenly;
 }
 
 .input-container > label {
