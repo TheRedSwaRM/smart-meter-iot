@@ -41,7 +41,19 @@ const Dashboard = () => {
     return <div className='loading-screen'>Loading...</div>
   }
 
-  const energyExpense = userData.expenses[userData.expenses.length-1]
+  if (userData.loading) {
+    return <div>Loading...</div>
+  }
+
+  var energyExpense 
+  if (userData.expenses.length > 0) {
+    energyExpense = userData.expenses[userData.expenses.length-1]
+  } else {
+    energyExpense = {
+      estimated_cost: 0,
+      power: 0
+    }
+  }
 
   const cost = `PHP ${energyExpense.estimated_cost.toFixed(2)}`
   const power = `${energyExpense.power.toFixed(2)} kWh`

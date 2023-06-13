@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import '../styles/form.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import server from '../utils/server';
 
 const FormSignup = (props) => {
   const nav = useNavigate();
@@ -10,15 +11,28 @@ const FormSignup = (props) => {
     password: '', //password
     deviceID: '', //device id
     kwhCost: '',  //kwh cost value
-    thresh_low: 0, //first threshold benchmark
-    thresh_high: Infinity //second threshold benchmark
+    thresh_low: 1, //first threshold benchmark
+    thresh_high: 100 //second threshold benchmark
   })
+
   const doCancel = () => {
     nav('/login');
   }
+
   const doSubmit = (e) => {
     e.preventDefault()
-
+    try {
+      server.post('/user/new', {
+        username: accInfo.uname,
+        password: accInfo.password,
+        device_id: accInfo.deviceID,
+        cost_per_kwh: accInfo.kwhCost,
+        thresh_low: accInfo.thresh_low,
+        thresh_up: accInfo.thresh_high
+      })
+    } catch (err) {
+      console.error(err)
+    }
     doCancel();
   }
 
@@ -32,10 +46,11 @@ const FormSignup = (props) => {
             type="text" name="uname" id = "uname"
             required 
             value = {accInfo.uname} 
-            onChange = {(e) => setAccInfo({
+            onChange = {(e) => setAccInfo(prev => ({
+              ...prev,
               uname : e.target.value,
               display : e.target.value
-              })
+              }))
             }
           />
         </div>
@@ -45,9 +60,10 @@ const FormSignup = (props) => {
             type="password" name="password" id = "password" 
             required 
             value = {accInfo.password} 
-            onChange = {(e) => setAccInfo({
+            onChange = {(e) => setAccInfo(prev => ({
+              ...prev,
               password: e.target.value
-            })}
+            }))}
           />
         </div>
         
@@ -58,21 +74,23 @@ const FormSignup = (props) => {
             type="text" name="deviceid" id = "deviceid" 
             required 
             value = {accInfo.deviceID} 
-            onChange = {(e) => setAccInfo({
+            onChange = {(e) => setAccInfo(prev => ({
+              ...prev,
               deviceID: e.target.value
-            })}
+            }))}
           />
         </div>
 
         <div className="input-container">
-          <label>Kw/H Cost: </label>
+          <label>kWh Cost: </label>
           <input 
             type="text" name="kwhcost" id = "kwhcost" 
             required 
             value = {accInfo.kwhCost} 
-            onChange = {(e) => setAccInfo({
+            onChange = {(e) => setAccInfo(prev => ({
+              ...prev,
               kwhCost: e.target.value
-            })}
+            }))}
           />
         </div>
 
@@ -82,19 +100,22 @@ const FormSignup = (props) => {
           <input 
             type="number" name="thresh_low" id = "thresh_low" 
             required 
+            min={1}
             value = {accInfo.thresh_low} 
-            onChange = {(e) => setAccInfo({
+            onChange = {(e) => setAccInfo(prev => ({
+              ...prev,
               thresh_low: e.target.value
-            })}
+            }))}
           />
           <label>High: </label>
           <input 
             type="number" name="thresh_high" id = "thresh_up" 
             required 
             value = {accInfo.thresh_high} 
-            onChange = {(e) => setAccInfo({
+            onChange = {(e) => setAccInfo(prev => ({
+              ...prev,
               thresh_high: e.target.value
-            })}
+            }))}
           />
         </div>
 
