@@ -44,7 +44,7 @@ const Dashboard = () => {
   const energyExpense = userData.expenses[userData.expenses.length-1]
 
   const cost = `PHP ${energyExpense.estimated_cost.toFixed(2)}`
-  const power = `${energyExpense.power.toFixed(2)} Kw/h`
+  const power = `${energyExpense.power.toFixed(2)} kWh`
 
   return ( 
   <>     
