@@ -49,7 +49,7 @@ const FormSettings = (props) => {
       <form onSubmit={doSubmit}>
         <h3>Energy Rates (in ₱): </h3>
         <div className="input-container">
-          <label>Kw/H Cost: </label>
+          <label>kWh Cost: </label>
           <input 
             type="number" name="kwhcost" id = "kwhcost" 
             step = "0.00001"
