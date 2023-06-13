@@ -51,12 +51,14 @@ const Dashboard = () => {
   } else {
     energyExpense = {
       estimated_cost: 0,
-      power: 0
+      power: 0,
+      current_value: 0
     }
   }
 
   const cost = `PHP ${energyExpense.estimated_cost.toFixed(2)}`
-  const power = `${energyExpense.power.toFixed(2)} kWh`
+  const energy = `${energyExpense.current_value.toFixed(4)} kWh`
+  const power = `${energyExpense.power.toFixed(4)} W`
 
   return ( 
   <>     
@@ -77,6 +79,12 @@ const Dashboard = () => {
         </div>
         <div className='input-container'>
           <label>Energy Reading:</label>
+          <input 
+          disabled value={energy}
+          />
+        </div>
+        <div className='input-container'>
+          <label>Power Reading:</label>
           <input 
           disabled value={power}
           />
