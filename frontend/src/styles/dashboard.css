@@ -21,18 +21,33 @@
   color: #6cf0c2;
 }
 
-.infoLine {
+.status {
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 8px;
-  margin: 20px;
-  font-weight: bold;
+  flex-direction: column;
 }
 
-.infoLine > input {
-  max-width: 150px;
+.loading-screen {
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.input-container > input {
   flex: 1;
-  text-align: right;
+  margin-left: 20px;
+  justify-content: space-evenly;
+}
+
+.input-container > label {
+  flex: 1;
+}
+
+h3 {
+  margin-left: 20px;
 }

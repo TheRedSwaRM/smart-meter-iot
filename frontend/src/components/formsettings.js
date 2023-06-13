@@ -89,7 +89,7 @@ const FormSettings = (props) => {
 
         <div className="button-bar">
           <div className="button-container">
-            <input type="submit" name = "save" value = "Save Settings"/>
+            <input type="submit" name = "save" value = "Save Settings" onClick={doSubmit}/>
           </div>
           <div className="button-container">
             <input type="button" name = "cancel" value = "Cancel" onClick={doCancel}/>

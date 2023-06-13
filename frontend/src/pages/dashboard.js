@@ -3,18 +3,17 @@ import getCurrentDate from '../utils/date';
 import '../styles/utils.css';
 import '../styles/dashboard.css'
 import Modal from '../components/modal';
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
-import Login from './login';
+import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import useData from '../hooks/useData';
+import AlertBanner from '../components/alertbanner';
 
 const Dashboard = () => {
-  const [uname, setUname] = useState('user');
-  const date = getCurrentDate();
-  const currentMonth = date.month;
+  const date = (new Date()).toLocaleString('en-US', {month: 'long'}) + ' ' + (new Date().getFullYear()).toString();
 
   const nav = useNavigate();
 
   const userid = localStorage.getItem('userid');
+  const display = localStorage.getItem('display')
   const userData = useData(userid);
 
   useEffect(() => {
@@ -33,28 +32,51 @@ const Dashboard = () => {
     }
   }, [userData.loading])
 
+  const doLogout = () => {
+      localStorage.removeItem('userid')
+      localStorage.removeItem('display')
+  }
+
   if (userData.loading) {
-    return <div>Loading...</div>
+    return <div className='loading-screen'>Loading...</div>
   }
 
   const energyExpense = userData.expenses[userData.expenses.length-1]
-  const doLogout = () => {
-    localStorage.removeItem('userid')
-    localStorage.removeItem('display')
-  }
+
+  const cost = `PHP ${energyExpense.estimated_cost.toFixed(2)}`
+  const power = `${energyExpense.power.toFixed(2)} Kw/h`
 
   return ( 
   <>     
    <h1 style = {{textAlign: 'center'}}>IoMeter</h1>
     <Modal>
-      <h2 style = {{textAlign: 'center'}}> Hello, {uname}! Here's your: </h2>
-      
-      <div className = "infoLine">
-        Expenses (for the month of {currentMonth}): <input type="text" disabled value = {"PHP" + energyExpense.estimated_cost} />
+      <h2 style = {{textAlign: 'center'}}> Hello, {display}!</h2>
+      <div className='status'>
+        <h3>
+          Statistics for {date}
+        </h3>
+        
+        <div className='input-container'>
+          <label>Current Cost:</label> 
+          <input 
+          disabled value={cost}
+          />
+          
+        </div>
+        <div className='input-container'>
+          <label>Energy Reading:</label>
+          <input 
+          disabled value={power}
+          />
+        </div>
+          
       </div>
-      <div className = "infoLine">
-        Current threshold: <input type="text" disabled value = {energyExpense.thresh_up} />
-      </div>
+      <br/>
+      <AlertBanner 
+        value={cost}
+        low={userData.userInputs.low}
+        high={userData.userInputs.high}
+      />
       <br/>
       <div className='navbar'>
         <Link to='../settings'>Settings</Link> | <Link to='../login' onClick={doLogout}>Logout</Link>

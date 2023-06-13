@@ -101,6 +101,7 @@ input[type="button"]:hover {
 .input-container > input {
   flex: 1;
   margin-left: 20px;
+  color: black;
 }
 
 .input-container > label {

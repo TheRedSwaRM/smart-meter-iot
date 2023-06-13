@@ -1,0 +1,22 @@
+
+.warning1 {
+  background-color: orange;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 12px;
+}
+
+.warning2 {
+  background-color: red;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 12px;
+}
+
+
+.safe {
+  background-color: green;
+  color: white;
+}
