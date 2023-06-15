@@ -61,13 +61,13 @@ const FormSettings = (props) => {
             })}
           />
         </div>
-
         <h3>Cost thresholds (in ₱): </h3>
         <div className="input-container">
           <label>Low: </label>
           <input 
             type="number" name="thresh_low" id = "thresh_low" 
             required 
+            step = ".01"
             value = {accInfo.thresh_low} 
             onChange = {(e) => setAccInfo({
               ...accInfo,
@@ -78,6 +78,7 @@ const FormSettings = (props) => {
           <input 
             type="number" name="thresh_high" id = "thresh_up" 
             required 
+            step = ".01"
             value = {accInfo.thresh_high} 
             onChange = {(e) => setAccInfo({
               ...accInfo,
@@ -85,8 +86,6 @@ const FormSettings = (props) => {
             })}
           />
         </div>
-
-
         <div className="button-bar">
           <div className="button-container">
             <input type="submit" name = "save" value = "Save Settings" onClick={doSubmit}/>
